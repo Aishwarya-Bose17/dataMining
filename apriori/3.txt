@@ -1,0 +1,79 @@
+3. Find out all the forest ids (first one is id 1, last one id 246 )  that have frequent plant species (with the same support threshold) of length 6 or more.
+
+>
+> forests <- read.csv("C:/Users/ab822/Downloads/forests.txt", header=FALSE, sep=";")
+> 
+> View(forests)
+> 
+> library(arules)
+Loading required package: Matrix
+
+Attaching package: ‘arules’
+
+The following objects are masked from ‘package:base’:
+
+    abbreviate, write
+
+Warning messages:
+1: package ‘arules’ was built under R version 3.3.2 
+2: package ‘Matrix’ was built under R version 3.3.2 
+> 
+> trans= read.transactions("C:/Users/ab822/Downloads/forests.txt", format = c("basket"), rm.duplicates = FALSE)
+> 
+> parameter = list(supp= 0.6, minlen = 6, target= "frequent itemsets")
+> 
+> rules <- apriori(trans, parameter)
+Apriori
+
+Parameter specification:
+ confidence minval smax arem  aval originalSupport maxtime support minlen maxlen            target   ext
+         NA    0.1    1 none FALSE            TRUE       5     0.6      6     10 frequent itemsets FALSE
+
+Algorithmic control:
+ filter tree heap memopt load sort verbose
+    0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+
+Absolute minimum support count: 147 
+
+set item appearances ...[0 item(s)] done [0.00s].
+set transactions ...[206 item(s), 246 transaction(s)] done [0.00s].
+sorting and recoding items ... [41 item(s)] done [0.00s].
+creating transaction tree ... done [0.00s].
+checking subsets of size 1 2 3 4 5 6 done [0.01s].
+writing ... [29 set(s)] done [0.00s].
+creating S4 object  ... done [0.00s].
+>
+> inspect(rules)
+     items                     support  
+[1]  {111,127,130,62,9,91}     0.6178862
+[2]  {111,127,13,130,62,9}     0.6016260
+[3]  {111,127,130,164,62,9}    0.6016260
+[4]  {111,127,130,4,62,9}      0.6138211
+[5]  {111,127,130,139,62,9}    0.6056911
+[6]  {111,127,130,191,35,75}   0.6016260
+[7]  {111,127,130,172,191,35}  0.6016260
+[8]  {111,127,130,191,35,62}   0.6097561
+[9]  {111,127,130,191,35,9}    0.6056911
+[10] {111,116,127,130,35,9}    0.6016260
+[11] {111,127,130,35,62,9}     0.6138211
+[12] {111,116,127,130,172,191} 0.6016260
+[13] {111,116,127,130,191,62}  0.6056911
+[14] {111,116,127,130,191,9}   0.6016260
+[15] {111,127,130,172,191,75}  0.6056911
+[16] {111,127,130,191,62,75}   0.6056911
+[17] {111,127,130,191,75,9}    0.6016260
+[18] {127,130,172,191,62,9}    0.6016260
+[19] {111,127,130,172,191,62}  0.6138211
+[20] {111,127,130,172,191,9}   0.6097561
+[21] {111,127,130,191,62,9}    0.6178862
+[22] {111,116,127,130,75,9}    0.6016260
+[23] {111,116,127,130,62,9}    0.6178862
+[24] {111,127,130,163,62,9}    0.6138211
+[25] {111,127,130,158,75,9}    0.6016260
+[26] {111,127,130,172,75,9}    0.6016260
+[27] {111,127,130,62,75,9}     0.6178862
+[28] {111,127,130,158,62,9}    0.6260163
+[29] {111,127,130,172,62,9}    0.6219512
+> 
+
+ 
